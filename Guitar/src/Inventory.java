@@ -2,9 +2,7 @@ import enums.Builder;
 import enums.Type;
 import enums.Wood;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Inventory {
     private List guitars;
@@ -29,32 +27,26 @@ public class Inventory {
         }
         return null;
     }
-    public Guitar search(Guitar searchGuitar) {
+    public List<Guitar> search(Guitar searchGuitar) {
+        List<Guitar> guitarList = new ArrayList<>();
         for (Iterator i = guitars.iterator(); i.hasNext(); ) {
             Guitar guitar = (Guitar)i.next();
 // Ignore serial number since that’s unique
 // Ignore price since that’s unique
-            String builder = searchGuitar.getBuilder();
-            if ((builder != null) && (!builder.equals("")) &&
-                    (!builder.equals(guitar.getBuilder())))
+            if (searchGuitar.getBuilder() != guitar.getBuilder())
                 continue;
             String model = searchGuitar.getModel();
             if ((model != null) && (!model.equals("")) &&
                     (!model.equals(guitar.getModel())))
                 continue;
-            String type = searchGuitar.getType();
-            if ((type != null) && (!searchGuitar.equals("")) &&
-                    (!type.equals(guitar.getType())))
+            if (searchGuitar.getType() != guitar.getType())
                 continue;
-            String backWood = searchGuitar.getBackWood();
-            if ((backWood != null) && (!backWood.equals("")) &&
-                    (!backWood.equals(guitar.getBackWood())))
+            if (searchGuitar.getBackWood() != guitar.getBackWood())
                 continue;
-            String topWood = searchGuitar.getTopWood();
-            if ((topWood != null) && (!topWood.equals("")) &&
-                    (!topWood.equals(guitar.getTopWood())))
+            if (searchGuitar.getTopWood() != guitar.getTopWood())
                 continue;
+            guitarList.add(guitar);
         }
-        return null;
+        return guitarList;
     }
 }
